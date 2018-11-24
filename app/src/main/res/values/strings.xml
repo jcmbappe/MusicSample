@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Music Sample</string>
     <string name="search_label">Search</string>
+
+    <string name="title_top_hundred">Top 100</string>
+    <string name="title_search_for">Search for %s</string>
+
+    <string name="error_unknown">An unknown error occurred</string>
 </resources>

@@ -5,6 +5,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:focusableInTouchMode="true"
         android:layout_height="match_parent"
         tools:context=".activity.mainActivity.MainActivity">
 
@@ -31,6 +32,7 @@
                 android:ellipsize="end"
                 android:hint="@string/search_label"
                 android:maxLines="1"
+                android:singleLine="true"
                 android:paddingStart="20dp"
                 android:paddingEnd="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -40,17 +42,6 @@
                 tools:text="Kanye West" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:padding="10dp"
-            android:id="@+id/title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/constraintLayout"
-            tools:text="Top 100" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
@@ -59,7 +50,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
