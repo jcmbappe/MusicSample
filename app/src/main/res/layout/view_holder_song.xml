@@ -18,7 +18,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="5dp"
         android:padding="10dp"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,8 +26,11 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/cover"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 app:imageFromUrl="@{viewModel.cover}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -46,9 +49,10 @@
                 android:text="@{viewModel.title}"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@id/singer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/cover"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cover"
                 tools:text="Vive le vent d'hiver" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -60,7 +64,8 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{viewModel.artist}"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                app:layout_constraintBottom_toBottomOf="@id/cover"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/cover"
                 tools:text="@tools:sample/full_names" />
