@@ -2,11 +2,7 @@ package com.example.musicsample.data
 
 import com.google.gson.annotations.SerializedName
 
-<<<<<<< Updated upstream
-class SongSearch : Song() {
-=======
 class SearchedSong : Song() {
->>>>>>> Stashed changes
 
     @SerializedName("trackId")
     private var trackId: Int = 0
