@@ -3,10 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.musicsample.activity.mainActivity.MainActivityViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:focusableInTouchMode="true"
         android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
         tools:context=".activity.mainActivity.MainActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,9 +39,12 @@
                 android:ellipsize="end"
                 android:hint="@string/search_label"
                 android:maxLines="1"
-                android:singleLine="true"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
                 android:paddingStart="20dp"
                 android:paddingEnd="5dp"
+                android:singleLine="true"
+                android:text="@={viewModel.search}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,12 +55,12 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
-            tools:listitem="@layout/view_holder_song"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/constraintLayout" />
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout"
+            tools:listitem="@layout/view_holder_song" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

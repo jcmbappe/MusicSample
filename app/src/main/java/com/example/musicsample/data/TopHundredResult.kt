@@ -2,13 +2,13 @@ package com.example.musicsample.data
 
 import com.google.gson.annotations.SerializedName
 
-open class TopHundred {
+open class TopHundredResult {
 
     @SerializedName("feed")
     lateinit var feed: Feed
 
     open class Feed {
         @SerializedName("entry")
-        lateinit var entries: ArrayList<Entry>
+        lateinit var entries: ArrayList<TopHundredSong>
     }
 }
