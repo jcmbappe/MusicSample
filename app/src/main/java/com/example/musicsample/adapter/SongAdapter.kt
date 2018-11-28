@@ -14,6 +14,7 @@ class SongAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var songList: ArrayList<Song>? = null
     var searchState: MainActivityViewModel.SearchState =
         MainActivityViewModel.SearchState.HOT_HUNDRED
+    var search : String? = null
 
     private enum class TYPE {
         HEADER, SONG
@@ -45,7 +46,7 @@ class SongAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is HeaderViewHolder) {
-            holder.bind(searchState)
+            holder.bind(searchState, search)
         } else if (holder is SongViewHolder) {
             songList?.get(position - 1)?.let { holder.bind(it) }
         }

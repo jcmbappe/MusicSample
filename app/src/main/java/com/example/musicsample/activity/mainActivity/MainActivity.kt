@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
 
             searchState.observe(this@MainActivity, Observer {
                 adapter.searchState = it
+                adapter.search = this.search.get()
             })
         }
     }
