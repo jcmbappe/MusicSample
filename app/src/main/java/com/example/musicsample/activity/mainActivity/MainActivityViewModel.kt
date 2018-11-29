@@ -28,7 +28,7 @@ class MainActivityViewModel(resolver: UIResolver, repository: StreamingPlatformR
         getTopHundredHotSongs()
     }
 
-    private fun getTopHundredHotSongs() {
+     fun getTopHundredHotSongs() {
         repository.getTopHundredHotSongs(object : NetworkCallback(resolver) {
             override fun onSuccess(body: ResponseBody?) {
                 val responseData = body?.string()
