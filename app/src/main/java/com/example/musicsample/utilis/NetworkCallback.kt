@@ -1,5 +1,6 @@
 package com.example.musicsample.utilis
 
+import androidx.lifecycle.MutableLiveData
 import com.example.musicsample.R
 import com.example.musicsample.utilis.error.UIResolver
 import okhttp3.Call
@@ -9,8 +10,10 @@ import okhttp3.ResponseBody
 import java.io.IOException
 
 
-abstract class NetworkCallback(private val resolver: UIResolver) : Callback {
+abstract class NetworkCallback(private val resolver: UIResolver, private val loader: MutableLiveData<Boolean>) :
+    Callback {
     override fun onFailure(call: Call, e: IOException) {
+        loader.postValue(false)
         if (e.message.isNullOrBlank()) {
             e.message?.let { resolver.displayMessage(it) }
         } else {
@@ -30,5 +33,8 @@ abstract class NetworkCallback(private val resolver: UIResolver) : Callback {
 
     abstract fun onSuccess(body: ResponseBody?)
 
-    abstract fun onUnsuccessful(code: Int, message: String, body: ResponseBody?)
+     open fun onUnsuccessful(code: Int, message: String, body: ResponseBody?) {
+         loader.postValue(false)
+         resolver.displayMessage(message)
+     }
 }

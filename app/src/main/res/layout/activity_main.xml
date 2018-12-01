@@ -38,9 +38,9 @@
                 android:drawablePadding="20dp"
                 android:ellipsize="end"
                 android:hint="@string/search_label"
-                android:maxLines="1"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
+                android:maxLines="1"
                 android:paddingStart="20dp"
                 android:paddingEnd="5dp"
                 android:singleLine="true"
@@ -52,6 +52,15 @@
                 tools:text="Kanye West" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <include
+            android:id="@+id/include"
+            layout="@layout/include_loading"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
@@ -61,6 +70,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/constraintLayout"
             tools:listitem="@layout/view_holder_song" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

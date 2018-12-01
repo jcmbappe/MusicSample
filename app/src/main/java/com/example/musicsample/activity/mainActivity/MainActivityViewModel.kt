@@ -20,52 +20,54 @@ class MainActivityViewModel(resolver: UIResolver, repository: StreamingPlatformR
     val songLiveData = MutableLiveData<ArrayList<Song>>()
     val searchState = MutableLiveData<SearchState>()
 
+    val loading = MutableLiveData<Boolean>()
+
     enum class SearchState {
         HOT_HUNDRED, SEARCH
     }
 
     init {
-        getTopHundredHotSongs()
+        loading.value = false
     }
 
-     fun getTopHundredHotSongs() {
-        repository.getTopHundredHotSongs(object : NetworkCallback(resolver) {
+    fun getTopHundredHotSongs() {
+        loading.value = true
+        repository.getTopHundredHotSongs(object : NetworkCallback(resolver, loading) {
             override fun onSuccess(body: ResponseBody?) {
                 val responseData = body?.string()
 
                 searchState.postValue(SearchState.HOT_HUNDRED)
 
-                repository.gson.fromJson(responseData, TopHundredResult::class.java).let { topHundred ->
-                    ArrayList<Song>().let { songList ->
-                        topHundred?.feed?.entries?.toCollection(songList)
-                        songLiveData.postValue(songList)
+                repository.gson.fromJson(responseData, TopHundredResult::class.java)
+                    .let { topHundred ->
+                        ArrayList<Song>().let { songList ->
+                            topHundred?.feed?.entries?.toCollection(songList)
+                            songLiveData.postValue(songList)
+                        }
                     }
-                }
-            }
 
-            override fun onUnsuccessful(code: Int, message: String, body: ResponseBody?) {
-                resolver.displayMessage(message)
+                loading.postValue(false)
             }
         })
     }
 
     fun getSearch() {
         search.get()?.let {
-            repository.getSearch(it, object : NetworkCallback(resolver) {
+            loading.value = true
+            repository.getSearch(it, object : NetworkCallback(resolver, loading) {
                 override fun onSuccess(body: ResponseBody?) {
                     val responseData = body?.string()
 
                     searchState.postValue(SearchState.SEARCH)
 
-                    repository.gson.fromJson(responseData, SearchResult::class.java).let { searchResult ->
-                        ArrayList<Song>().let { songList ->
-                            searchResult?.results?.toCollection(songList)
-                            songLiveData.postValue(songList)
+                    repository.gson.fromJson(responseData, SearchResult::class.java)
+                        .let { searchResult ->
+                            ArrayList<Song>().let { songList ->
+                                searchResult?.results?.toCollection(songList)
+                                songLiveData.postValue(songList)
+                            }
                         }
-                    }
-                }
-
-                override fun onUnsuccessful(code: Int, message: String, body: ResponseBody?) {
+                    loading.postValue(false)
                 }
             })
         }
