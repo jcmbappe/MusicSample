@@ -26,7 +26,11 @@ abstract class NetworkCallback(private val resolver: UIResolver, private val loa
             onSuccess(response.body())
         } else {
             response.apply {
-                onUnsuccessful(code(), message(), body())
+                if (message().isEmpty()) {
+                    resolver.displayMessage(R.string.error_unknown)
+                } else {
+                    onUnsuccessful(code(), message(), body())
+                }
             }
         }
     }
