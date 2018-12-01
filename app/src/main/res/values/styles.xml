@@ -8,4 +8,25 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextStyle" parent="TextAppearance.AppCompat" />
+
+    <style name="TextStyle.Preview" parent="TextStyle">
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextStyle.Preview.Title" parent="TextStyle.Preview">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextStyle.Preview.Artiste" parent="TextStyle.Preview">
+        <item name="android:textColor">@color/greyMedium</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="TextStyle.Preview.Time" parent="TextStyle.Preview">
+        <item name="android:textColor">@color/greyMedium</item>
+        <item name="android:textSize">17sp</item>
+    </style>
 </resources>
