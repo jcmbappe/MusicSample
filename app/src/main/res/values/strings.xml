@@ -6,5 +6,8 @@
     <string name="title_search_for">Search for : </string>
 
     <string name="error_unknown">An unknown error occurred</string>
-    <string name="label_loading">Loading...</string>
+    <string name="error_provide_permission">Permission must be provide</string>
+
+    <string name="label_loading">Loading…</string>
+
 </resources>

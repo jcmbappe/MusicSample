@@ -2,9 +2,9 @@ package com.example.musicsample.activity.mainActivity
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
-import com.example.musicsample.data.SearchResult
+import com.example.musicsample.data.searched.SearchResult
 import com.example.musicsample.data.Song
-import com.example.musicsample.data.TopHundredResult
+import com.example.musicsample.data.topHundred.TopHundredResult
 import com.example.musicsample.repository.StreamingPlatformRepository
 import com.example.musicsample.utilis.NetworkCallback
 import com.example.musicsample.utilis.error.UIResolver

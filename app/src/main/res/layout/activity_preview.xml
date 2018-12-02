@@ -28,9 +28,9 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
-                app:imageFromUrl="@{viewModel.cover}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:imageFromUrl="@{viewModel.cover}"
                 tools:src="@drawable/ic_music_note_black_24dp" />
 
         </androidx.cardview.widget.CardView>
@@ -74,18 +74,24 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="@{viewModel.time}"
                 tools:text="0:08" />
 
             <androidx.core.widget.ContentLoadingProgressBar
+                android:id="@+id/progression"
+                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="0dp"
+                android:secondaryProgress="@{viewModel.progression}"
                 android:layout_height="wrap_content"
-                android:layout_weight="3" />
+                android:layout_weight="3"
+                android:max="30000" />
 
             <TextView
                 style="@style/TextStyle.Preview.Time"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="0:30"
                 tools:text="0:30" />
         </LinearLayout>
 
@@ -104,23 +110,32 @@
             app:layout_constraintTop_toBottomOf="@id/player">
 
             <ImageView
+                android:id="@+id/previous"
                 android:layout_width="@dimen/play_button_size"
                 android:layout_height="@dimen/play_button_size"
                 android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
                 android:src="@drawable/ic_skip_previous_black_24dp"
                 android:tint="@android:color/white" />
 
             <ImageView
+                android:id="@+id/playPause"
                 android:layout_width="@dimen/play_button_size"
                 android:layout_height="@dimen/play_button_size"
                 android:layout_weight="1"
-                android:src="@drawable/ic_skip_previous_black_24dp"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                android:src="@drawable/ic_play_circle_outline_black_24dp"
                 android:tint="@android:color/white" />
 
             <ImageView
+                android:id="@+id/next"
                 android:layout_width="@dimen/play_button_size"
                 android:layout_height="@dimen/play_button_size"
                 android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
                 android:src="@drawable/ic_skip_next_black_24dp"
                 android:tint="@android:color/white" />
         </LinearLayout>

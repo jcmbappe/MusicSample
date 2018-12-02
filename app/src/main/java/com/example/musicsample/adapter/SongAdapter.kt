@@ -1,5 +1,6 @@
 package com.example.musicsample.adapter
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,8 +11,8 @@ import com.example.musicsample.databinding.ViewHolderSongBinding
 import com.example.musicsample.viewHolder.header.HeaderViewHolder
 import com.example.musicsample.viewHolder.song.SongViewHolder
 
-class SongAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var songList: ArrayList<Song>? = null
+class SongAdapter(val activity : Activity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    var songList: ArrayList<Song> = ArrayList()
     var searchState: MainActivityViewModel.SearchState =
         MainActivityViewModel.SearchState.HOT_HUNDRED
     var search : String? = null
@@ -31,14 +32,16 @@ class SongAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             SongViewHolder(
                 ViewHolderSongBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
-                )
+                ),
+                activity,
+                songList
             )
         }
     }
 
     override fun getItemCount(): Int {
-        return if (songList != null) {
-            songList?.size?.plus(1) ?: 0
+        return if (songList.size > 0) {
+            songList.size.plus(1)
         } else {
             0
         }
@@ -48,7 +51,7 @@ class SongAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if (holder is HeaderViewHolder) {
             holder.bind(searchState, search)
         } else if (holder is SongViewHolder) {
-            songList?.get(position - 1)?.let { holder.bind(it) }
+            songList[position - 1].let { holder.bind(it) }
         }
     }
 
