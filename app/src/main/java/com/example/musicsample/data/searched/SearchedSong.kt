@@ -1,8 +1,9 @@
-package com.example.musicsample.data
+package com.example.musicsample.data.searched
 
+import com.example.musicsample.data.Song
 import com.google.gson.annotations.SerializedName
 
-class SearchedSong : Song() {
+class SearchedSong() : Song() {
 
     @SerializedName("trackId")
     private var trackId: Int = 0
@@ -16,6 +17,9 @@ class SearchedSong : Song() {
     @SerializedName("artworkUrl100")
     private var artworkUrl: String? = ""
 
+    @SerializedName("previewUrl")
+    private lateinit var preview: String
+
     override val id: Int?
         get() = trackId
 
@@ -27,4 +31,7 @@ class SearchedSong : Song() {
 
     override val coverUrl: String?
         get() = artworkUrl
+
+    override val previewUrl: String?
+        get() = preview
 }

@@ -1,5 +1,9 @@
-package com.example.musicsample.data
+package com.example.musicsample.data.topHundred
 
+import com.example.musicsample.data.Song
+import com.example.musicsample.data.topHundred.subData.Id
+import com.example.musicsample.data.topHundred.subData.Label
+import com.example.musicsample.data.topHundred.subData.Link
 import com.google.gson.annotations.SerializedName
 
 open class TopHundredSong : Song() {
@@ -16,6 +20,9 @@ open class TopHundredSong : Song() {
     @SerializedName("im:image")
     private lateinit var inCoverList: ArrayList<Label>
 
+    @SerializedName("link")
+    private lateinit var links: ArrayList<Link>
+
     override val id: Int?
         get() = inId.attributes.id
 
@@ -28,18 +35,6 @@ open class TopHundredSong : Song() {
     override val coverUrl: String?
         get() = inCoverList.lastOrNull()?.label
 
-    open class Id {
-        @SerializedName("attributes")
-        lateinit var attributes: Attributes
-
-        open class Attributes {
-            @SerializedName("im:id")
-            var id: Int = 0
-        }
-    }
-
-    open class Label {
-        @SerializedName("label")
-        lateinit var label: String
-    }
+    override val previewUrl: String?
+        get() = links.find { it.attributes.title == "Extrait" }?.attributes?.href
 }

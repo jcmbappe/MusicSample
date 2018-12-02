@@ -5,4 +5,5 @@ abstract class Song {
     abstract val title: String?
     abstract val artist: String?
     abstract val coverUrl: String?
+    abstract val previewUrl: String?
 }

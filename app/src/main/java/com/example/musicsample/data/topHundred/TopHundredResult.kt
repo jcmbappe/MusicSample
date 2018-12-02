@@ -1,4 +1,4 @@
-package com.example.musicsample.data
+package com.example.musicsample.data.topHundred
 
 import com.google.gson.annotations.SerializedName
 
