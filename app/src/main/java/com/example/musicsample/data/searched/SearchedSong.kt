@@ -1,5 +1,7 @@
 package com.example.musicsample.data.searched
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.example.musicsample.data.Song
 import com.google.gson.annotations.SerializedName
 
@@ -18,7 +20,7 @@ class SearchedSong() : Song() {
     private var artworkUrl: String? = ""
 
     @SerializedName("previewUrl")
-    private lateinit var preview: String
+    private  var preview: String? = ""
 
     override val id: Int?
         get() = trackId
@@ -34,4 +36,34 @@ class SearchedSong() : Song() {
 
     override val previewUrl: String?
         get() = preview
+
+    constructor(parcel: Parcel) : this() {
+        trackId = parcel.readInt()
+        trackName = parcel.readString()
+        artistName = parcel.readString()
+        artworkUrl = parcel.readString()
+        preview = parcel.readString()
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(trackId)
+        parcel.writeString(trackName)
+        parcel.writeString(artistName)
+        parcel.writeString(artworkUrl)
+        parcel.writeString(preview)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<SearchedSong> {
+        override fun createFromParcel(parcel: Parcel): SearchedSong {
+            return SearchedSong(parcel)
+        }
+
+        override fun newArray(size: Int): Array<SearchedSong?> {
+            return arrayOfNulls(size)
+        }
+    }
 }
