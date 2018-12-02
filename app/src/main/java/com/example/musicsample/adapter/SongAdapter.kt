@@ -33,8 +33,7 @@ class SongAdapter(val activity : Activity) : RecyclerView.Adapter<RecyclerView.V
                 ViewHolderSongBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 ),
-                activity,
-                songList
+                activity
             )
         }
     }
@@ -51,7 +50,7 @@ class SongAdapter(val activity : Activity) : RecyclerView.Adapter<RecyclerView.V
         if (holder is HeaderViewHolder) {
             holder.bind(searchState, search)
         } else if (holder is SongViewHolder) {
-            songList[position - 1].let { holder.bind(it) }
+            songList[position - 1].let { holder.bind(it, songList) }
         }
     }
 
