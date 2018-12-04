@@ -16,11 +16,15 @@ class MainActivityViewModel(resolver: UIResolver, repository: StreamingPlatformR
     StreamingPlatformViewModel(resolver, repository) {
 
     val search = ObservableField<String>()
+    val recyclerViewVisibility = ObservableField<Boolean>(false)
+    val lottieLayoutVisibility = ObservableField<Boolean>(false)
+    val lottieMessage = ObservableField<String>()
 
     val songLiveData = MutableLiveData<ArrayList<Song>>()
     val searchState = MutableLiveData<SearchState>()
 
     val loading = MutableLiveData<Boolean>()
+
 
     enum class SearchState {
         HOT_HUNDRED, SEARCH
@@ -37,7 +41,7 @@ class MainActivityViewModel(resolver: UIResolver, repository: StreamingPlatformR
                 val responseData = body?.string()
 
                 searchState.postValue(SearchState.HOT_HUNDRED)
-
+                loading.postValue(false)
                 repository.gson.fromJson(responseData, TopHundredResult::class.java)
                     .let { topHundred ->
                         ArrayList<Song>().let { songList ->
@@ -46,7 +50,6 @@ class MainActivityViewModel(resolver: UIResolver, repository: StreamingPlatformR
                         }
                     }
 
-                loading.postValue(false)
             }
         })
     }
@@ -59,7 +62,7 @@ class MainActivityViewModel(resolver: UIResolver, repository: StreamingPlatformR
                     val responseData = body?.string()
 
                     searchState.postValue(SearchState.SEARCH)
-
+                    loading.postValue(false)
                     repository.gson.fromJson(responseData, SearchResult::class.java)
                         .let { searchResult ->
                             ArrayList<Song>().let { songList ->
@@ -67,7 +70,6 @@ class MainActivityViewModel(resolver: UIResolver, repository: StreamingPlatformR
                                 songLiveData.postValue(songList)
                             }
                         }
-                    loading.postValue(false)
                 }
             })
         }

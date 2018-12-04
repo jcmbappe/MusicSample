@@ -9,5 +9,6 @@
     <string name="error_provide_permission">Permission must be provide</string>
 
     <string name="label_loading">Loading…</string>
+    <string name="label_nothing_found">Nothing found</string>
 
 </resources>

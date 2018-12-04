@@ -1,7 +1,6 @@
 package com.example.musicsample.activity.mainActivity
 
 import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -18,23 +17,30 @@ import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: MainActivityViewModel
     private val repository: ItuneRepository by inject()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding =
-            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         val adapter = SongAdapter(this)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val viewModel = MainActivityViewModel(SnackBarResolver(binding.root), repository).apply {
+        viewModel = MainActivityViewModel(SnackBarResolver(binding.root), repository).apply {
             binding.viewModel = this
 
             songLiveData.observe(this@MainActivity, Observer {
                 adapter.songList = it
                 adapter.notifyDataSetChanged()
+                lottieLayoutAnimation(
+                    adapter.itemCount == 0,
+                    R.raw.sky,
+                    R.string.label_nothing_found
+                )
             })
 
             searchState.observe(this@MainActivity, Observer {
@@ -43,13 +49,7 @@ class MainActivity : AppCompatActivity() {
             })
 
             loading.observe(this@MainActivity, Observer {
-                if (it == true) {
-                    binding.include.visibility = View.VISIBLE
-                    binding.recyclerView.visibility = View.GONE
-                } else if (it == false) {
-                    binding.include.visibility = View.GONE
-                    binding.recyclerView.visibility = View.VISIBLE
-                }
+                lottieLayoutAnimation(it == true, R.raw.sound_visualizer, R.string.label_loading)
             })
 
             getTopHundredHotSongs()
@@ -68,19 +68,18 @@ class MainActivity : AppCompatActivity() {
                 }
                 false
             })
-/*
-            addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(s: Editable?) {}
+        }
+    }
 
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    if (count == 0) {
-                        viewModel.getSearch()
-                    }
-                }
-            })
-            */
+    private fun lottieLayoutAnimation(isVisible: Boolean, rawRes: Int, message: Int) {
+        if (isVisible) {
+            binding.include.lottie.setAnimation(rawRes)
+            viewModel.lottieMessage.set(getString(message))
+            viewModel.lottieLayoutVisibility.set(true)
+            viewModel.recyclerViewVisibility.set(false)
+        } else {
+            viewModel.lottieLayoutVisibility.set(false)
+            viewModel.recyclerViewVisibility.set(true)
         }
     }
 }
